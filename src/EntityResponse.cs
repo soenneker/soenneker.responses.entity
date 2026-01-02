@@ -14,8 +14,8 @@ public record EntityResponse
     public virtual string Id { get; set; } = null!;
 
     [JsonPropertyName("createdAt")]
-    public virtual DateTime CreatedAt { get; set; }
+    public virtual DateTimeOffset CreatedAt { get; set; }
 
     [JsonPropertyName("modifiedAt")]
-    public virtual DateTime? ModifiedAt { get; set; }
+    public virtual DateTimeOffset? ModifiedAt { get; set; }
 }
