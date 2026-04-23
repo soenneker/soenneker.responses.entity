@@ -44,6 +44,10 @@
     </ItemGroup>
 
     <ItemGroup>
+<<<<<<< HEAD
         <PackageReference Include="Soenneker.Attributes.PublicOpenApiObject" Version="4.0.42" />
+=======
+      <PackageReference Include="Soenneker.Attributes.PublicOpenApiObject" Version="4.0.44" />
+>>>>>>> f909302f3ea98d01d661ec2ef6addd4ee7e8e195
     </ItemGroup>
 </Project>
