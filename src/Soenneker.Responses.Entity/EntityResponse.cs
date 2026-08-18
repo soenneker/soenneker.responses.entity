@@ -5,25 +5,25 @@ using Soenneker.Attributes.PublicOpenApiObject;
 namespace Soenneker.Responses.Entity;
 
 /// <summary>
-/// A base response model with ID and timestamps, serialized using System.Text.Json property names.
+/// Provides the stable identifier and creation or modification timestamps shared by API resource responses.
 /// </summary>
 [PublicOpenApiObject]
 public record EntityResponse
 {
     /// <summary>
-    /// The unique identifier for the entity.
+    /// Stable unique identifier of the resource.
     /// </summary>
     [JsonPropertyName("id")]
     public virtual string Id { get; set; } = null!;
 
     /// <summary>
-    /// The date and time when the entity was created.
+    /// UTC timestamp when the resource was created.
     /// </summary>
     [JsonPropertyName("createdAt")]
     public virtual DateTimeOffset CreatedAt { get; set; }
 
     /// <summary>
-    /// The date and time when the entity was last modified, if applicable.
+    /// UTC timestamp when the resource was last modified, or <see langword="null"/> when it has not been updated.
     /// </summary>
     [JsonPropertyName("modifiedAt")]
     public virtual DateTimeOffset? ModifiedAt { get; set; }
