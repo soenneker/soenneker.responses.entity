@@ -5,22 +5,48 @@
 
 # Soenneker.Responses.Entity
 
-Provides the stable identifier and creation or modification timestamps shared by API resource responses.
+A reusable API response record containing a resource identifier and audit timestamps.
 
-## Install
+## Installation
 
 ```bash
 dotnet add package Soenneker.Responses.Entity
 ```
 
-## What you get
+## Usage
 
-- `EntityResponse` — Provides the stable identifier and creation or modification timestamps shared by API resource responses.
+Derive a resource response from `EntityResponse`:
 
-## API at a glance
+```csharp
+using Soenneker.Responses.Entity;
 
-| API | What it does | Result / important behavior |
-| --- | --- | --- |
-| `EntityResponse.Id` | Stable unique identifier of the resource. | Stable unique identifier of the resource. |
-| `EntityResponse.CreatedAt` | UTC timestamp when the resource was created. | UTC timestamp when the resource was created. |
-| `EntityResponse.ModifiedAt` | UTC timestamp when the resource was last modified, or `null` when it has not been updated. | UTC timestamp when the resource was last modified, or `null` when it has not been updated. |
+public record WidgetResponse : EntityResponse
+{
+    public required string Name { get; init; }
+}
+```
+
+Populate it when mapping a domain entity to an API contract:
+
+```csharp
+var response = new WidgetResponse
+{
+    Id = widget.Id,
+    Name = widget.Name,
+    CreatedAt = widget.CreatedAt,
+    ModifiedAt = widget.ModifiedAt
+};
+```
+
+The serialized base properties are:
+
+```json
+{
+  "id": "75f11404-9c6f-4b33-b16c-d3ffea59f8f4",
+  "createdAt": "2026-08-30T14:00:00+00:00",
+  "modifiedAt": null
+}
+```
+
+`CreatedAt` and `ModifiedAt` are `DateTimeOffset` values, preserving the supplied UTC offset. `ModifiedAt` is nullable for resources that have not been changed since creation. The properties are virtual so specialized response contracts can override them when necessary.
+
